@@ -10,11 +10,34 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as ConveniosRouteImport } from './routes/convenios'
+import { Route as NosotrosRouteImport } from './routes/nosotros'
 import { Route as PadecimientosRouteImport } from './routes/padecimientos'
+import { Route as PromocionesRouteImport } from './routes/promociones'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as ServiciosIndexRouteImport } from './routes/servicios/index'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConveniosRoute = ConveniosRouteImport.update({
+  id: '/convenios',
+  path: '/convenios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NosotrosRoute = NosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PadecimientosRoute = PadecimientosRouteImport.update({
@@ -22,31 +45,119 @@ const PadecimientosRoute = PadecimientosRouteImport.update({
   path: '/padecimientos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PromocionesRoute = PromocionesRouteImport.update({
+  id: '/promociones',
+  path: '/promociones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
+  id: '/servicios/',
+  path: '/servicios/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
+  id: '/servicios/$slug',
+  path: '/servicios/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/convenios': typeof ConveniosRoute
+  '/nosotros': typeof NosotrosRoute
   '/padecimientos': typeof PadecimientosRoute
+  '/promociones': typeof PromocionesRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
+  '/blog/': typeof BlogIndexRoute
+  '/servicios/': typeof ServiciosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/convenios': typeof ConveniosRoute
+  '/nosotros': typeof NosotrosRoute
   '/padecimientos': typeof PadecimientosRoute
+  '/promociones': typeof PromocionesRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
+  '/blog': typeof BlogIndexRoute
+  '/servicios': typeof ServiciosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/convenios': typeof ConveniosRoute
+  '/nosotros': typeof NosotrosRoute
   '/padecimientos': typeof PadecimientosRoute
+  '/promociones': typeof PromocionesRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
+  '/blog/': typeof BlogIndexRoute
+  '/servicios/': typeof ServiciosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/padecimientos'
+  fullPaths:
+    | '/'
+    | '/contacto'
+    | '/convenios'
+    | '/nosotros'
+    | '/padecimientos'
+    | '/promociones'
+    | '/blog/$slug'
+    | '/servicios/$slug'
+    | '/blog/'
+    | '/servicios/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/padecimientos'
-  id: '__root__' | '/' | '/padecimientos'
+  to:
+    | '/'
+    | '/contacto'
+    | '/convenios'
+    | '/nosotros'
+    | '/padecimientos'
+    | '/promociones'
+    | '/blog/$slug'
+    | '/servicios/$slug'
+    | '/blog'
+    | '/servicios'
+  id:
+    | '__root__'
+    | '/'
+    | '/contacto'
+    | '/convenios'
+    | '/nosotros'
+    | '/padecimientos'
+    | '/promociones'
+    | '/blog/$slug'
+    | '/servicios/$slug'
+    | '/blog/'
+    | '/servicios/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactoRoute: typeof ContactoRoute
+  ConveniosRoute: typeof ConveniosRoute
+  NosotrosRoute: typeof NosotrosRoute
   PadecimientosRoute: typeof PadecimientosRoute
+  PromocionesRoute: typeof PromocionesRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+  ServiciosIndexRoute: typeof ServiciosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +169,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/convenios': {
+      id: '/convenios'
+      path: '/convenios'
+      fullPath: '/convenios'
+      preLoaderRoute: typeof ConveniosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nosotros': {
+      id: '/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/padecimientos': {
       id: '/padecimientos'
       path: '/padecimientos'
@@ -65,12 +197,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PadecimientosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/promociones': {
+      id: '/promociones'
+      path: '/promociones'
+      fullPath: '/promociones'
+      preLoaderRoute: typeof PromocionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios/': {
+      id: '/servicios/'
+      path: '/servicios'
+      fullPath: '/servicios/'
+      preLoaderRoute: typeof ServiciosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios/$slug': {
+      id: '/servicios/$slug'
+      path: '/servicios/$slug'
+      fullPath: '/servicios/$slug'
+      preLoaderRoute: typeof ServiciosSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactoRoute: ContactoRoute,
+  ConveniosRoute: ConveniosRoute,
+  NosotrosRoute: NosotrosRoute,
   PadecimientosRoute: PadecimientosRoute,
+  PromocionesRoute: PromocionesRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  ServiciosSlugRoute: ServiciosSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
+  ServiciosIndexRoute: ServiciosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
