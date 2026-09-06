@@ -5,7 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { PrimeraConsulta } from "@/components/primera-consulta";
 import { BLOG_POSTS } from "@/lib/clinic-data";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Blog de Salud y Rehabilitación | GHAAMASHA" },

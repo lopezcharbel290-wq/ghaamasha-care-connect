@@ -4,7 +4,7 @@ import { PageHero } from "@/components/page-hero";
 import { ServiciosGrid } from "@/components/servicios-grid";
 import { PrimeraConsulta } from "@/components/primera-consulta";
 
-export const Route = createFileRoute("/servicios")({
+export const Route = createFileRoute("/servicios/")({
   head: () => ({
     meta: [
       { title: "Servicios y Terapias | GHAAMASHA Rehabilitación Física" },
