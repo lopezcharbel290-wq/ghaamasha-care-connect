@@ -56,9 +56,9 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
   id: '/servicios/',
@@ -66,9 +66,9 @@ const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ServiciosRoute,
+  id: '/servicios/$slug',
+  path: '/servicios/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -154,6 +154,8 @@ export interface RootRouteChildren {
   NosotrosRoute: typeof NosotrosRoute
   PadecimientosRoute: typeof PadecimientosRoute
   PromocionesRoute: typeof PromocionesRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ServiciosIndexRoute: typeof ServiciosIndexRoute
 }
@@ -211,10 +213,10 @@ declare module '@tanstack/react-router' {
     }
     '/blog/$slug': {
       id: '/blog/$slug'
-      path: '/$slug'
+      path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/servicios/': {
       id: '/servicios/'
@@ -225,10 +227,10 @@ declare module '@tanstack/react-router' {
     }
     '/servicios/$slug': {
       id: '/servicios/$slug'
-      path: '/$slug'
+      path: '/servicios/$slug'
       fullPath: '/servicios/$slug'
       preLoaderRoute: typeof ServiciosSlugRouteImport
-      parentRoute: typeof ServiciosRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -240,6 +242,8 @@ const rootRouteChildren: RootRouteChildren = {
   NosotrosRoute: NosotrosRoute,
   PadecimientosRoute: PadecimientosRoute,
   PromocionesRoute: PromocionesRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  ServiciosSlugRoute: ServiciosSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ServiciosIndexRoute: ServiciosIndexRoute,
 }
