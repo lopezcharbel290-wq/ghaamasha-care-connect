@@ -39,27 +39,27 @@ function ContactoPage() {
       <section className="section-pad">
         <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <a
-            href={`tel:${SEDE_LIST[0].telefonoLink}`}
+            href={`tel:${SEDES.tlalnepantla.telefonoLink}`}
             className="rounded-3xl border border-border bg-card p-6 text-center shadow-card transition-colors hover:border-primary/40"
           >
             <span className="mx-auto grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
               <Phone className="size-5" aria-hidden />
             </span>
             <h2 className="mt-4 font-extrabold">Tlalnepantla</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{SEDE_LIST[0].telefono}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{SEDES.tlalnepantla.telefono}</p>
           </a>
           <a
-            href={`tel:${SEDE_LIST[1].telefonoLink}`}
+            href={`tel:${SEDES.lindavista.telefonoLink}`}
             className="rounded-3xl border border-border bg-card p-6 text-center shadow-card transition-colors hover:border-primary/40"
           >
             <span className="mx-auto grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
               <Phone className="size-5" aria-hidden />
             </span>
             <h2 className="mt-4 font-extrabold">Lindavista</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{SEDE_LIST[1].telefono}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{SEDES.lindavista.telefono}</p>
           </a>
           <a
-            href={waLink(SEDE_LIST[0], MENSAJE_WA_DEFAULT)}
+            href={waLink(SEDES.tlalnepantla, MENSAJE_WA_DEFAULT)}
             target="_blank"
             rel="noreferrer"
             className="rounded-3xl border border-border bg-card p-6 text-center shadow-card transition-colors hover:border-primary/40"
@@ -95,7 +95,7 @@ function ContactoPage() {
                 <span>
                   <span className="font-semibold text-foreground">Horario de ambas sedes:</span>
                   <br />
-                  {SEDE_LIST[0].horario}
+                  {SEDES.tlalnepantla.horario}
                 </span>
               </p>
             </div>
