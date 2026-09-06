@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { SedesSection } from "@/components/sedes-section";
 import { AppointmentForm } from "@/components/appointment-form";
-import { CONTACTO, SEDE_LIST, MENSAJE_WA_DEFAULT, waLink } from "@/lib/clinic-data";
+import { CONTACTO, SEDES, MENSAJE_WA_DEFAULT, waLink } from "@/lib/clinic-data";
 
 export const Route = createFileRoute("/contacto")({
   head: () => ({
