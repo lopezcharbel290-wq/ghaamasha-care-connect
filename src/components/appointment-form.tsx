@@ -265,6 +265,16 @@ export function AppointmentForm({
         </div>
       </div>
 
+      {status === "error" ? (
+        <p
+          role="alert"
+          className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive"
+        >
+          <AlertCircle className="size-4 shrink-0" aria-hidden />
+          No pudimos enviar tu solicitud. Intenta de nuevo o contáctanos por WhatsApp.
+        </p>
+      ) : null}
+
       <Button
         type="submit"
         variant="cta"
