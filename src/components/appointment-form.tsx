@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { CalendarCheck, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { AlertCircle, CalendarCheck, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
 import { z } from "zod";
 
+import { solicitarCita } from "@/lib/citas.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -64,9 +66,10 @@ export function AppointmentForm({
     comentarios: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   const sedeElegida = SEDES[values.sede];
+  const solicitarCitaFn = useServerFn(solicitarCita);
 
   function update<K extends keyof typeof values>(key: K, value: (typeof values)[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -86,8 +89,17 @@ export function AppointmentForm({
       return;
     }
     setStatus("sending");
-    // Demo: los datos aún no se guardan. Se conectará la base de datos después.
-    window.setTimeout(() => setStatus("done"), 700);
+    void (async () => {
+      try {
+        await solicitarCitaFn({
+          data: { ...parsed.data, origen: prefill?.origen },
+        });
+        setStatus("done");
+      } catch (error) {
+        console.error("Error al enviar la solicitud de cita:", error);
+        setStatus("error");
+      }
+    })();
   }
 
   if (status === "done") {
@@ -252,6 +264,16 @@ export function AppointmentForm({
           </Field>
         </div>
       </div>
+
+      {status === "error" ? (
+        <p
+          role="alert"
+          className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive"
+        >
+          <AlertCircle className="size-4 shrink-0" aria-hidden />
+          No pudimos enviar tu solicitud. Intenta de nuevo o contáctanos por WhatsApp.
+        </p>
+      ) : null}
 
       <Button
         type="submit"
