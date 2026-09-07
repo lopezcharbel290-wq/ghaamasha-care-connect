@@ -26,7 +26,6 @@ async function supabaseRest(
   init: RequestInit & { prefer?: string } = {},
 ): Promise<unknown> {
   const key = process.env["CLINIC_SUPABASE_SERVICE_ROLE_KEY"];
-  console.log(`[citas] ${init.method ?? "GET"} ${path} — clave presente: ${Boolean(key)}, empieza con: ${key?.slice(0, 6) ?? "N/A"}`);
   if (!key) throw new Error("Falta la clave del servidor de la clínica");
   const { prefer, ...rest } = init;
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
@@ -39,7 +38,6 @@ async function supabaseRest(
       ...(rest.headers ?? {}),
     },
   });
-  console.log(`[citas] respuesta ${res.status} de ${path}`);
   if (!res.ok) {
     const body = await res.text();
     console.error(`Supabase REST error ${res.status} en ${path}: ${body}`);
