@@ -114,7 +114,7 @@ function NosotrosPage() {
           </div>
           <div className="overflow-hidden rounded-lg border border-border shadow-card">
             <img
-              src={drImg}
+              src={drImgAsset.url}
               alt="Dr. Ricardo Emilio Aguilar Pineda, médico especialista en medicina de rehabilitación"
               width={912}
               height={1104}
