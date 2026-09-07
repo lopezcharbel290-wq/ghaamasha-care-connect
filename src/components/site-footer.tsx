@@ -75,7 +75,7 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-          <div className="mt-6 rounded-2xl bg-primary-foreground/10 p-4 text-xs leading-relaxed text-primary-foreground/80">
+          <div className="mt-6 rounded-lg bg-primary-foreground/10 p-4 text-xs leading-relaxed text-primary-foreground/80">
             <p className="font-bold text-primary-foreground">Aviso de privacidad</p>
             <p className="mt-1">
               Los datos que compartes en este sitio se utilizan únicamente para contactarte, agendar
