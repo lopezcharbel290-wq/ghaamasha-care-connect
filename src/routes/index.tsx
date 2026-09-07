@@ -22,7 +22,7 @@ import { useAgenda } from "@/components/agenda-context";
 import { useSede } from "@/components/sede-context";
 import { MENSAJE_WA_DEFAULT, waLink } from "@/lib/clinic-data";
 import heroImg from "@/assets/hero-clinica.jpg";
-import drImg from "@/assets/dr-aguilar.jpg";
+import drImgAsset from "@/assets/dr-aguilar.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({

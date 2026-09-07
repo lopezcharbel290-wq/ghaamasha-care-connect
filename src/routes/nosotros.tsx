@@ -6,7 +6,7 @@ import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { PrimeraConsulta } from "@/components/primera-consulta";
 import { useAgenda } from "@/components/agenda-context";
-import drImg from "@/assets/dr-aguilar.jpg";
+import drImgAsset from "@/assets/dr-aguilar.jpg.asset.json";
 import instalacionesImg from "@/assets/instalaciones.jpg";
 
 export const Route = createFileRoute("/nosotros")({
