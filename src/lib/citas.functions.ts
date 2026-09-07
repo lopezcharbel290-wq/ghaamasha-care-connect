@@ -59,7 +59,8 @@ async function buscarOCrearPaciente(data: CitaInput): Promise<string> {
     body: JSON.stringify({
       nombre_completo: data.nombre,
       telefono: data.telefono,
-      
+      origen: "web",
+      estado_journey: "prospecto",
       notas: `Registrado desde el sitio web. Padecimiento inicial: ${data.padecimiento_principal}`,
     }),
   })) as { id: string }[];
