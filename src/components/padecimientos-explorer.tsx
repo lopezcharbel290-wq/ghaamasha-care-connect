@@ -88,12 +88,12 @@ export function PadecimientosExplorer({ compactHeading = false }: { compactHeadi
             return (
               <article
                 key={cat.id}
-                className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-card transition-shadow hover:shadow-lift"
+                className="flex flex-col rounded-lg border border-border bg-card p-6 shadow-card transition-shadow hover:shadow-lift"
               >
-                <span className="grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
+                <span className="grid size-12 place-items-center rounded-lg bg-primary-soft text-primary-deep">
                   <Icono className="size-6" aria-hidden />
                 </span>
-                <h3 className="mt-4 text-xl font-extrabold">{cat.titulo}</h3>
+                <h3 className="mt-4 text-xl font-semibold">{cat.titulo}</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                   {cat.descripcion}
                 </p>

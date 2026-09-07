@@ -47,9 +47,9 @@ export function ServiciosGrid({ withHeading = true }: { withHeading?: boolean })
                 key={servicio.slug}
                 to="/servicios/$slug"
                 params={{ slug: servicio.slug }}
-                className="group flex flex-col rounded-3xl border border-border bg-card p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-card"
+                className="group flex flex-col rounded-lg border border-border bg-card p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-card"
               >
-                <span className="grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
+                <span className="grid size-11 place-items-center rounded-lg bg-primary-soft text-primary-deep group-hover:bg-accent group-hover:text-accent-foreground">
                   <Icono className="size-5" aria-hidden />
                 </span>
                 <h3 className="mt-4 text-lg font-bold leading-snug">{servicio.nombre}</h3>

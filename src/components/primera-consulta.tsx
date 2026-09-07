@@ -24,7 +24,7 @@ export function PrimeraConsulta() {
               <li key={paso.titulo} className="flex gap-4">
                 <span
                   aria-hidden
-                  className="grid size-9 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground"
+                   className="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-sm font-bold text-accent-foreground"
                 >
                   {i + 1}
                 </span>
@@ -47,7 +47,7 @@ export function PrimeraConsulta() {
           </Button>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-border shadow-lift">
+         <div className="overflow-hidden rounded-lg border border-border shadow-lift">
           <img
             src={instalaciones}
             alt="Sala de tratamiento de GHAAMASHA con tina de hidroterapia y equipo de mecanoterapia"
