@@ -1,13 +1,10 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { AppointmentForm, type AgendaPrefill } from "@/components/appointment-form";
+import { AgendaContext } from "@/components/agenda-context-value";
 
-type AgendaContextValue = {
-  openAgenda: (prefill?: AgendaPrefill) => void;
-};
-
-const AgendaContext = createContext<AgendaContextValue | null>(null);
+export { useAgenda } from "@/components/agenda-context-value";
 
 export function AgendaProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -33,10 +30,4 @@ export function AgendaProvider({ children }: { children: ReactNode }) {
       </Dialog>
     </AgendaContext.Provider>
   );
-}
-
-export function useAgenda() {
-  const ctx = useContext(AgendaContext);
-  if (!ctx) throw new Error("useAgenda debe usarse dentro de AgendaProvider");
-  return ctx;
 }
