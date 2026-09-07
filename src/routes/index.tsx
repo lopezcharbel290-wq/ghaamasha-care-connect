@@ -121,6 +121,7 @@ function Hero() {
                 Cédula profesional 7654321 · Cédula de especialidad 11223344
               </p>
             </div>
+          </div>
         </div>
       </div>
     </section>
