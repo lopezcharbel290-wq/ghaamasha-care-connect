@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { CalendarCheck, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { AlertCircle, CalendarCheck, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
 import { z } from "zod";
 
+import { solicitarCita } from "@/lib/citas.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -67,6 +69,7 @@ export function AppointmentForm({
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
 
   const sedeElegida = SEDES[values.sede];
+  const solicitarCitaFn = useServerFn(solicitarCita);
 
   function update<K extends keyof typeof values>(key: K, value: (typeof values)[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
