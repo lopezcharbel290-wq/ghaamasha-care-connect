@@ -66,7 +66,7 @@ export function AppointmentForm({
     comentarios: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   const sedeElegida = SEDES[values.sede];
   const solicitarCitaFn = useServerFn(solicitarCita);
@@ -89,8 +89,17 @@ export function AppointmentForm({
       return;
     }
     setStatus("sending");
-    // Demo: los datos aún no se guardan. Se conectará la base de datos después.
-    window.setTimeout(() => setStatus("done"), 700);
+    void (async () => {
+      try {
+        await solicitarCitaFn({
+          data: { ...parsed.data, origen: prefill?.origen },
+        });
+        setStatus("done");
+      } catch (error) {
+        console.error("Error al enviar la solicitud de cita:", error);
+        setStatus("error");
+      }
+    })();
   }
 
   if (status === "done") {
