@@ -26,7 +26,7 @@ export function AgendaProvider({ children }: { children: ReactNode }) {
     <AgendaContext.Provider value={value}>
       {children}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-h-[90dvh] max-w-xl overflow-y-auto rounded-3xl p-0">
+        <DialogContent className="max-h-[90dvh] max-w-xl overflow-y-auto rounded-lg p-0">
           <DialogTitle className="sr-only">Agendar cita</DialogTitle>
           <AppointmentForm key={key} prefill={prefill} className="border-0 shadow-none" />
         </DialogContent>

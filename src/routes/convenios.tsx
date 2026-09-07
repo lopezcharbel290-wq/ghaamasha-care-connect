@@ -50,12 +50,12 @@ function ConveniosPage() {
               return (
                 <article
                   key={convenio.nombre}
-                  className="rounded-3xl border border-border bg-card p-6 shadow-card"
+                   className="rounded-lg border border-border bg-card p-6 shadow-card"
                 >
-                  <span className="grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
+                   <span className="grid size-11 place-items-center rounded-lg bg-primary-soft text-primary-deep">
                     <Icono className="size-5" aria-hidden />
                   </span>
-                  <h2 className="mt-4 text-xl font-extrabold">{convenio.nombre}</h2>
+                   <h2 className="mt-4 text-xl font-semibold">{convenio.nombre}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {convenio.detalle}
                   </p>
@@ -68,11 +68,11 @@ function ConveniosPage() {
 
       <section className="section-pad bg-gradient-soft">
         <div className="container-page">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card p-7 text-center shadow-card">
-            <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
+          <div className="mx-auto max-w-2xl rounded-lg border border-border bg-card p-7 text-center shadow-card">
+            <span className="mx-auto grid size-12 place-items-center rounded-lg bg-accent text-accent-foreground">
               <Handshake className="size-6" aria-hidden />
             </span>
-            <h2 className="mt-4 text-2xl font-extrabold">¿Quieres proponer un convenio?</h2>
+            <h2 className="mt-4 text-2xl font-semibold">¿Quieres proponer un convenio?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Escríbenos con el nombre de tu organización, el número de personas a atender y el tipo
               de convenio que buscas. Te respondemos con una propuesta en menos de 48 horas.

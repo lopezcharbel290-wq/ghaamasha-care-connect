@@ -94,12 +94,12 @@ export function AppointmentForm({
     return (
       <div
         className={cn(
-          "rounded-3xl border border-border bg-card p-7 text-center shadow-card",
+          "rounded-lg border border-border bg-card p-7 text-center shadow-card",
           className,
         )}
       >
         <CheckCircle2 className="mx-auto size-12 text-whatsapp" aria-hidden />
-        <h3 className="mt-4 text-2xl font-extrabold">¡Solicitud recibida!</h3>
+        <h3 className="mt-4 text-2xl font-semibold">¡Solicitud recibida!</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           Gracias, {values.nombre.split(" ")[0]}. Te contactaremos en breve al{" "}
           <span className="font-semibold text-foreground">{values.telefono}</span> para confirmar tu
@@ -145,13 +145,13 @@ export function AppointmentForm({
       onSubmit={onSubmit}
       noValidate
       className={cn(
-        "rounded-3xl border border-border bg-card p-6 shadow-card sm:p-7",
+        "rounded-lg border border-border bg-card p-6 shadow-card sm:p-7",
         className,
       )}
     >
       {!compact ? (
         <div className="mb-6">
-          <h3 className="text-2xl font-extrabold">Agenda tu valoración</h3>
+          <h3 className="text-2xl font-semibold">Agenda tu valoración</h3>
           <p className="mt-1 text-sm text-muted-foreground">
             Déjanos tus datos y te confirmamos horario por teléfono o WhatsApp.
           </p>
@@ -192,7 +192,7 @@ export function AppointmentForm({
                 aria-pressed={values.sede === sede.id}
                 onClick={() => update("sede", sede.id)}
                 className={cn(
-                  "rounded-2xl border px-4 py-3 text-left text-sm transition-colors",
+                  "rounded-lg border px-4 py-3 text-left text-sm transition-colors",
                   values.sede === sede.id
                     ? "border-primary bg-primary-soft text-primary-deep"
                     : "border-border bg-background hover:bg-secondary",
