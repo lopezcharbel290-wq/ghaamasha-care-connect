@@ -42,7 +42,7 @@ function NosotrosPage() {
 
       <section className="section-pad">
         <div className="container-page grid items-center gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-3xl border border-border shadow-card">
+          <div className="overflow-hidden rounded-lg border border-border shadow-card">
             <img
               src={instalacionesImg}
               alt="Instalaciones de GHAAMASHA con equipo de rehabilitación"
@@ -112,7 +112,7 @@ function NosotrosPage() {
               <CalendarPlus aria-hidden /> Agenda una valoración con el Dr. Aguilar
             </Button>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-border shadow-card">
+          <div className="overflow-hidden rounded-lg border border-border shadow-card">
             <img
               src={drImg}
               alt="Dr. Ricardo Emilio Aguilar Pineda, médico especialista en medicina de rehabilitación"

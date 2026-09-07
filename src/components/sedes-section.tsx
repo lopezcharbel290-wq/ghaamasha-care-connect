@@ -23,17 +23,17 @@ export function SedesSection() {
           {SEDE_LIST.map((sede) => (
             <article
               key={sede.id}
-              className="overflow-hidden rounded-3xl border border-border bg-card shadow-card"
+              className="overflow-hidden rounded-lg border border-border bg-card shadow-card"
             >
               <iframe
                 title={`Mapa de la sede ${sede.nombre}`}
                 src={sede.mapsEmbed}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="h-56 w-full border-0"
+                className="map-muted h-48 w-full border-0"
               />
               <div className="p-6">
-                <h3 className="text-2xl font-extrabold">Sede {sede.nombre}</h3>
+                <h3 className="text-2xl font-semibold">Sede {sede.nombre}</h3>
                 <p className="mt-3 flex gap-2 text-sm leading-relaxed text-muted-foreground">
                   <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
                   <span>

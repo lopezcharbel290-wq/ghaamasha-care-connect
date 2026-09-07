@@ -41,12 +41,12 @@ function BlogPage() {
               key={post.slug}
               to="/blog/$slug"
               params={{ slug: post.slug }}
-              className="group flex flex-col rounded-3xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-card"
+              className="group flex flex-col rounded-lg border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-card"
             >
               <span className="inline-flex w-fit items-center rounded-full bg-primary-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-deep">
                 {post.categoria}
               </span>
-              <h2 className="mt-4 text-xl font-extrabold leading-snug">{post.titulo}</h2>
+              <h2 className="mt-4 text-xl font-semibold leading-snug">{post.titulo}</h2>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                 {post.resumen}
               </p>

@@ -46,7 +46,7 @@ function PromocionesPage() {
             <article
               key={promo.titulo}
               className={cn(
-                "relative flex flex-col rounded-3xl border bg-card p-6 shadow-card",
+                "relative flex flex-col rounded-lg border bg-card p-6 shadow-card",
                 promo.destacado ? "border-primary ring-2 ring-primary/20" : "border-border",
               )}
             >
@@ -55,12 +55,12 @@ function PromocionesPage() {
                   <BadgePercent className="size-3.5" aria-hidden /> Más solicitada
                 </span>
               ) : null}
-              <span className="grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
+               <span className="grid size-11 place-items-center rounded-lg bg-accent text-accent-foreground">
                 <Tag className="size-5" aria-hidden />
               </span>
-              <h2 className="mt-4 text-xl font-extrabold leading-snug">{promo.titulo}</h2>
+               <h2 className="mt-4 text-xl font-semibold leading-snug">{promo.titulo}</h2>
               <p className="mt-3 flex items-baseline gap-2">
-                <span className="text-4xl font-extrabold text-primary-deep">{promo.precio}</span>
+                 <span className="font-display text-4xl font-semibold text-primary-deep">{promo.precio}</span>
                 <span className="text-base font-semibold text-muted-foreground line-through">
                   {promo.antes}
                 </span>

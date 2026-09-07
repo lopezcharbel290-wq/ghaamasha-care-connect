@@ -4,6 +4,7 @@
 - [ ] Conectar el formulario de citas a una base de datos real (hoy es demo)
 
 ## Hecho
+- [x] Rediseño integral azul marino, blanco y amarillo
 - [x] Inicio
 - [x] Padecimientos
 - [x] Nosotros

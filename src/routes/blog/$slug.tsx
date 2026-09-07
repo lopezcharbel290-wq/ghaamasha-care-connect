@@ -89,7 +89,7 @@ function BlogPostPage() {
           <span className="mt-5 inline-flex w-fit items-center rounded-full bg-primary-foreground/15 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]">
             {post.categoria}
           </span>
-          <h1 className="mt-3 max-w-3xl text-3xl font-extrabold sm:text-4xl">{post.titulo}</h1>
+           <h1 className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">{post.titulo}</h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/85">
             {articulo.subtitulo}
           </p>
@@ -112,8 +112,8 @@ function BlogPostPage() {
             </p>
           ))}
 
-          <div className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-card">
-            <h2 className="text-xl font-extrabold">¿Tienes dudas sobre tu caso?</h2>
+          <div className="mt-10 rounded-lg border border-border bg-card p-6 shadow-card">
+            <h2 className="text-xl font-semibold">¿Tienes dudas sobre tu caso?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Cada paciente es distinto. Una valoración con médico especialista te da un diagnóstico
               claro y un plan de tratamiento por escrito.

@@ -27,8 +27,8 @@ export function SectionHeading({
       {eyebrow ? (
         <p
           className={cn(
-            "text-xs font-bold uppercase tracking-[0.18em]",
-            tone === "onDark" ? "text-primary-foreground/75" : "text-primary",
+            "text-xs font-bold uppercase tracking-[0.16em]",
+            tone === "onDark" ? "text-accent" : "text-primary",
           )}
         >
           {eyebrow}
@@ -36,7 +36,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "mt-2 text-3xl font-extrabold sm:text-4xl",
+          "mt-3 text-3xl font-semibold leading-tight sm:text-4xl",
           tone === "onDark" ? "text-primary-foreground" : "text-foreground",
         )}
       >

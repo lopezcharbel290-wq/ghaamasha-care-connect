@@ -146,10 +146,10 @@ function ServicioDetallePage() {
       <section className="section-pad">
         <div className="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <span className="grid size-14 place-items-center rounded-2xl bg-primary-soft text-primary-deep">
+            <span className="grid size-14 place-items-center rounded-lg bg-accent text-accent-foreground">
               <Icono className="size-7" aria-hidden />
             </span>
-            <h2 className="mt-5 text-2xl font-extrabold sm:text-3xl">
+            <h2 className="mt-5 text-2xl font-semibold sm:text-3xl">
               ¿En qué consiste {servicio.nombre.toLowerCase()}?
             </h2>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
@@ -165,8 +165,8 @@ function ServicioDetallePage() {
             </ul>
           </div>
 
-          <aside className="h-fit rounded-3xl border border-border bg-card p-6 shadow-card lg:sticky lg:top-32">
-            <h3 className="text-lg font-extrabold">¿Este servicio es para ti?</h3>
+          <aside className="h-fit rounded-lg border border-border bg-card p-6 shadow-card lg:sticky lg:top-32">
+            <h3 className="text-lg font-semibold">¿Este servicio es para ti?</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               La forma de saberlo es con una valoración médica. El especialista confirma el
               diagnóstico y te dice cuántas sesiones necesitas y cuánto costará el plan completo.

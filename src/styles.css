@@ -5,13 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * GHAAMASHA design system — clinical-warm.
- * Institutional teal/green, neutral whites and grays, soft rounded cards.
+ * GHAAMASHA design system — serene medical excellence.
+ * Institutional navy, luminous whites and warm yellow details.
  */
 
 @theme inline {
   --font-sans:
-    "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    "Nunito Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Lora", ui-serif, Georgia, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -57,31 +58,31 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.5rem;
 
-  --background: oklch(0.995 0.003 180);
-  --foreground: oklch(0.24 0.03 205);
+  --background: oklch(0.985 0.004 250);
+  --foreground: oklch(0.2 0.04 255);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.03 205);
+  --card-foreground: oklch(0.2 0.04 255);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.03 205);
+  --popover-foreground: oklch(0.2 0.04 255);
 
-  /* Institutional teal */
-  --primary: oklch(0.52 0.09 191);
-  --primary-foreground: oklch(0.99 0.005 190);
-  --primary-soft: oklch(0.95 0.026 189);
-  --primary-deep: oklch(0.33 0.06 199);
+  /* Institutional navy */
+  --primary: oklch(0.32 0.09 257);
+  --primary-foreground: oklch(0.99 0.003 250);
+  --primary-soft: oklch(0.95 0.018 250);
+  --primary-deep: oklch(0.22 0.07 257);
 
-  --secondary: oklch(0.96 0.012 190);
-  --secondary-foreground: oklch(0.33 0.06 199);
+  --secondary: oklch(0.955 0.012 252);
+  --secondary-foreground: oklch(0.25 0.07 257);
 
-  --muted: oklch(0.965 0.006 200);
-  --muted-foreground: oklch(0.53 0.02 210);
+  --muted: oklch(0.96 0.007 250);
+  --muted-foreground: oklch(0.5 0.025 255);
 
-  /* Warm accent for main CTAs */
-  --accent: oklch(0.68 0.15 46);
-  --accent-foreground: oklch(0.99 0.01 60);
+  /* Warm yellow accent */
+  --accent: oklch(0.82 0.16 88);
+  --accent-foreground: oklch(0.22 0.07 257);
 
   --whatsapp: oklch(0.62 0.15 150);
   --whatsapp-foreground: oklch(0.99 0.01 150);
@@ -89,34 +90,34 @@
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0.003 248);
 
-  --border: oklch(0.915 0.012 200);
-  --input: oklch(0.9 0.014 200);
-  --ring: oklch(0.52 0.09 191);
+  --border: oklch(0.9 0.014 250);
+  --input: oklch(0.88 0.016 250);
+  --ring: oklch(0.38 0.1 257);
 
-  --sidebar: oklch(0.98 0.008 195);
-  --sidebar-foreground: oklch(0.24 0.03 205);
-  --sidebar-primary: oklch(0.52 0.09 191);
-  --sidebar-primary-foreground: oklch(0.99 0.005 190);
-  --sidebar-accent: oklch(0.95 0.026 189);
-  --sidebar-accent-foreground: oklch(0.33 0.06 199);
-  --sidebar-border: oklch(0.915 0.012 200);
-  --sidebar-ring: oklch(0.52 0.09 191);
+  --sidebar: oklch(0.98 0.006 250);
+  --sidebar-foreground: oklch(0.2 0.04 255);
+  --sidebar-primary: oklch(0.32 0.09 257);
+  --sidebar-primary-foreground: oklch(0.99 0.003 250);
+  --sidebar-accent: oklch(0.95 0.018 250);
+  --sidebar-accent-foreground: oklch(0.25 0.07 257);
+  --sidebar-border: oklch(0.9 0.014 250);
+  --sidebar-ring: oklch(0.38 0.1 257);
 
   --gradient-hero: linear-gradient(
     135deg,
-    oklch(0.33 0.06 199) 0%,
-    oklch(0.48 0.09 191) 55%,
-    oklch(0.6 0.09 178) 100%
+    oklch(0.2 0.07 257) 0%,
+    oklch(0.29 0.09 257) 58%,
+    oklch(0.38 0.09 250) 100%
   );
   --gradient-soft: linear-gradient(
     180deg,
-    oklch(0.98 0.014 190) 0%,
+    oklch(0.965 0.012 250) 0%,
     oklch(1 0 0) 100%
   );
 
-  --shadow-soft: 0 1px 2px oklch(0.33 0.06 199 / 0.06);
-  --shadow-card: 0 6px 24px -12px oklch(0.33 0.06 199 / 0.18);
-  --shadow-lift: 0 18px 44px -20px oklch(0.33 0.06 199 / 0.32);
+  --shadow-soft: 0 1px 2px oklch(0.22 0.07 257 / 0.06);
+  --shadow-card: 0 8px 28px -16px oklch(0.22 0.07 257 / 0.2);
+  --shadow-lift: 0 20px 48px -24px oklch(0.22 0.07 257 / 0.35);
 }
 
 .dark {
@@ -167,9 +168,18 @@
   h2,
   h3,
   h4 {
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    letter-spacing: 0;
     text-wrap: balance;
   }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility map-muted {
+  filter: grayscale(1) sepia(0.2) hue-rotate(175deg) saturate(0.7) contrast(0.92);
 }
 
 @utility bg-gradient-hero {
@@ -181,7 +191,7 @@
 }
 
 @utility section-pad {
-  padding-block: 3.5rem;
+    padding-block: 4rem;
   @media (width >= 48rem) {
     padding-block: 5.5rem;
   }
