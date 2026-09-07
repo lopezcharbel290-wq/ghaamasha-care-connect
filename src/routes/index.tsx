@@ -22,7 +22,7 @@ import { useAgenda } from "@/components/agenda-context";
 import { useSede } from "@/components/sede-context";
 import { MENSAJE_WA_DEFAULT, waLink } from "@/lib/clinic-data";
 import heroImg from "@/assets/hero-clinica.jpg";
-import drImg from "@/assets/dr-aguilar.jpg";
+import drImgAsset from "@/assets/dr-aguilar.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -102,7 +102,7 @@ function Hero() {
           </div>
           <div className="mt-10 grid max-w-xl grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-lg border border-primary-foreground/20 bg-primary-deep/80 p-4 shadow-lift backdrop-blur-md sm:max-w-2xl sm:grid-cols-[auto_minmax(0,1fr)] lg:absolute lg:bottom-10 lg:right-6 lg:w-[25rem]">
             <img
-              src={drImg}
+              src={drImgAsset.url}
               alt="Dr. Ricardo Emilio Aguilar Pineda, médico especialista en medicina de rehabilitación"
               width={912}
               height={1104}

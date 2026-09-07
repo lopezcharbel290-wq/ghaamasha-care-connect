@@ -6,7 +6,7 @@ import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { PrimeraConsulta } from "@/components/primera-consulta";
 import { useAgenda } from "@/components/agenda-context";
-import drImg from "@/assets/dr-aguilar.jpg";
+import drImgAsset from "@/assets/dr-aguilar.jpg.asset.json";
 import instalacionesImg from "@/assets/instalaciones.jpg";
 
 export const Route = createFileRoute("/nosotros")({
@@ -114,7 +114,7 @@ function NosotrosPage() {
           </div>
           <div className="overflow-hidden rounded-lg border border-border shadow-card">
             <img
-              src={drImg}
+              src={drImgAsset.url}
               alt="Dr. Ricardo Emilio Aguilar Pineda, médico especialista en medicina de rehabilitación"
               width={912}
               height={1104}
