@@ -22,6 +22,7 @@ import { Route as PanelGhaamashaLoginRouteImport } from './routes/panel-ghaamash
 import { Route as ServiciosIndexRouteImport } from './routes/servicios/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
 import { Route as PanelGhaamashaPanelIndexRouteImport } from './routes/panel-ghaamasha/_panel/index'
+import { Route as PanelGhaamashaPanelAgendarRouteImport } from './routes/panel-ghaamasha/_panel/agendar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -89,6 +90,12 @@ const PanelGhaamashaPanelIndexRoute =
     path: '/',
     getParentRoute: () => PanelGhaamashaPanelRoute,
   } as any)
+const PanelGhaamashaPanelAgendarRoute =
+  PanelGhaamashaPanelAgendarRouteImport.update({
+    id: '/agendar',
+    path: '/agendar',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/agendar': typeof PanelGhaamashaPanelAgendarRoute
   '/panel-ghaamasha/': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRoutesByTo {
@@ -117,6 +125,7 @@ export interface FileRoutesByTo {
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog': typeof BlogIndexRoute
   '/servicios': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/agendar': typeof PanelGhaamashaPanelAgendarRoute
   '/panel-ghaamasha': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRoutesById {
@@ -133,6 +142,7 @@ export interface FileRoutesById {
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/_panel/agendar': typeof PanelGhaamashaPanelAgendarRoute
   '/panel-ghaamasha/_panel/': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRouteTypes {
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
+    | '/panel-ghaamasha/agendar'
     | '/panel-ghaamasha/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/servicios/$slug'
     | '/blog'
     | '/servicios'
+    | '/panel-ghaamasha/agendar'
     | '/panel-ghaamasha'
   id:
     | '__root__'
@@ -179,6 +191,7 @@ export interface FileRouteTypes {
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
+    | '/panel-ghaamasha/_panel/agendar'
     | '/panel-ghaamasha/_panel/'
   fileRoutesById: FileRoutesById
 }
@@ -290,14 +303,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelGhaamashaPanelIndexRouteImport
       parentRoute: typeof PanelGhaamashaPanelRoute
     }
+    '/panel-ghaamasha/_panel/agendar': {
+      id: '/panel-ghaamasha/_panel/agendar'
+      path: '/agendar'
+      fullPath: '/panel-ghaamasha/agendar'
+      preLoaderRoute: typeof PanelGhaamashaPanelAgendarRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
   }
 }
 
 interface PanelGhaamashaPanelRouteChildren {
+  PanelGhaamashaPanelAgendarRoute: typeof PanelGhaamashaPanelAgendarRoute
   PanelGhaamashaPanelIndexRoute: typeof PanelGhaamashaPanelIndexRoute
 }
 
 const PanelGhaamashaPanelRouteChildren: PanelGhaamashaPanelRouteChildren = {
+  PanelGhaamashaPanelAgendarRoute: PanelGhaamashaPanelAgendarRoute,
   PanelGhaamashaPanelIndexRoute: PanelGhaamashaPanelIndexRoute,
 }
 
