@@ -19,7 +19,6 @@ import {
 import { usePerfil } from "@/components/panel/panel-session-context";
 import {
   ESTADOS_JOURNEY,
-  MARCA_ARCHIVADO,
   ORIGENES,
   actualizarPaciente,
   crearPaciente,
