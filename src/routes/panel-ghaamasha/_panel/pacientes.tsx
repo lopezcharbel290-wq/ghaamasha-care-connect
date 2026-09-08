@@ -464,7 +464,7 @@ function FichaPaciente({
                     className="text-red-700"
                     onClick={() => {
                       if (window.confirm("¿Archivar a este paciente? No se borra su historial."))
-                        archivar.mutate(p.notas ?? "");
+                        archivar.mutate();
                     }}
                   >
                     <Archive aria-hidden /> Archivar
