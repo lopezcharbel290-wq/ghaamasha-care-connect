@@ -17,6 +17,8 @@ import { Route as PadecimientosRouteImport } from './routes/padecimientos'
 import { Route as PromocionesRouteImport } from './routes/promociones'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as PanelGhaamashaPanelRouteImport } from './routes/panel-ghaamasha/_panel'
+import { Route as PanelGhaamashaLoginRouteImport } from './routes/panel-ghaamasha/login'
 import { Route as ServiciosIndexRouteImport } from './routes/servicios/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
 
@@ -60,6 +62,16 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelGhaamashaPanelRoute = PanelGhaamashaPanelRouteImport.update({
+  id: '/panel-ghaamasha/_panel',
+  path: '/panel-ghaamasha',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelGhaamashaLoginRoute = PanelGhaamashaLoginRouteImport.update({
+  id: '/panel-ghaamasha/login',
+  path: '/panel-ghaamasha/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
   id: '/servicios/',
   path: '/servicios/',
@@ -79,6 +91,8 @@ export interface FileRoutesByFullPath {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/panel-ghaamasha': typeof PanelGhaamashaPanelRoute
+  '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
@@ -91,6 +105,8 @@ export interface FileRoutesByTo {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/panel-ghaamasha': typeof PanelGhaamashaPanelRoute
+  '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog': typeof BlogIndexRoute
   '/servicios': typeof ServiciosIndexRoute
@@ -104,6 +120,8 @@ export interface FileRoutesById {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/panel-ghaamasha/_panel': typeof PanelGhaamashaPanelRoute
+  '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
@@ -118,6 +136,8 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
+    | '/panel-ghaamasha'
+    | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
@@ -130,6 +150,8 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
+    | '/panel-ghaamasha'
+    | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog'
     | '/servicios'
@@ -142,6 +164,8 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
+    | '/panel-ghaamasha/_panel'
+    | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
@@ -155,6 +179,8 @@ export interface RootRouteChildren {
   PadecimientosRoute: typeof PadecimientosRoute
   PromocionesRoute: typeof PromocionesRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  PanelGhaamashaPanelRoute: typeof PanelGhaamashaPanelRoute
+  PanelGhaamashaLoginRoute: typeof PanelGhaamashaLoginRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ServiciosIndexRoute: typeof ServiciosIndexRoute
@@ -218,6 +244,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel-ghaamasha/_panel': {
+      id: '/panel-ghaamasha/_panel'
+      path: '/panel-ghaamasha'
+      fullPath: '/panel-ghaamasha'
+      preLoaderRoute: typeof PanelGhaamashaPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel-ghaamasha/login': {
+      id: '/panel-ghaamasha/login'
+      path: '/panel-ghaamasha/login'
+      fullPath: '/panel-ghaamasha/login'
+      preLoaderRoute: typeof PanelGhaamashaLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicios/': {
       id: '/servicios/'
       path: '/servicios'
@@ -243,6 +283,8 @@ const rootRouteChildren: RootRouteChildren = {
   PadecimientosRoute: PadecimientosRoute,
   PromocionesRoute: PromocionesRoute,
   BlogSlugRoute: BlogSlugRoute,
+  PanelGhaamashaPanelRoute: PanelGhaamashaPanelRoute,
+  PanelGhaamashaLoginRoute: PanelGhaamashaLoginRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ServiciosIndexRoute: ServiciosIndexRoute,
