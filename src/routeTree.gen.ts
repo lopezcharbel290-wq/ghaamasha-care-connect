@@ -17,8 +17,15 @@ import { Route as PadecimientosRouteImport } from './routes/padecimientos'
 import { Route as PromocionesRouteImport } from './routes/promociones'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as PanelGhaamashaPanelRouteImport } from './routes/panel-ghaamasha/_panel'
+import { Route as PanelGhaamashaLoginRouteImport } from './routes/panel-ghaamasha/login'
 import { Route as ServiciosIndexRouteImport } from './routes/servicios/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
+import { Route as PanelGhaamashaPanelIndexRouteImport } from './routes/panel-ghaamasha/_panel/index'
+import { Route as PanelGhaamashaPanelAgendarRouteImport } from './routes/panel-ghaamasha/_panel/agendar'
+import { Route as PanelGhaamashaPanelEstadisticasRouteImport } from './routes/panel-ghaamasha/_panel/estadisticas'
+import { Route as PanelGhaamashaPanelPacientesRouteImport } from './routes/panel-ghaamasha/_panel/pacientes'
+import { Route as PanelGhaamashaPanelStaffRouteImport } from './routes/panel-ghaamasha/_panel/staff'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -60,6 +67,16 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelGhaamashaPanelRoute = PanelGhaamashaPanelRouteImport.update({
+  id: '/panel-ghaamasha/_panel',
+  path: '/panel-ghaamasha',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelGhaamashaLoginRoute = PanelGhaamashaLoginRouteImport.update({
+  id: '/panel-ghaamasha/login',
+  path: '/panel-ghaamasha/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
   id: '/servicios/',
   path: '/servicios/',
@@ -70,6 +87,36 @@ const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
   path: '/servicios/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelGhaamashaPanelIndexRoute =
+  PanelGhaamashaPanelIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
+const PanelGhaamashaPanelAgendarRoute =
+  PanelGhaamashaPanelAgendarRouteImport.update({
+    id: '/agendar',
+    path: '/agendar',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
+const PanelGhaamashaPanelEstadisticasRoute =
+  PanelGhaamashaPanelEstadisticasRouteImport.update({
+    id: '/estadisticas',
+    path: '/estadisticas',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
+const PanelGhaamashaPanelPacientesRoute =
+  PanelGhaamashaPanelPacientesRouteImport.update({
+    id: '/pacientes',
+    path: '/pacientes',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
+const PanelGhaamashaPanelStaffRoute =
+  PanelGhaamashaPanelStaffRouteImport.update({
+    id: '/staff',
+    path: '/staff',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -79,9 +126,16 @@ export interface FileRoutesByFullPath {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/panel-ghaamasha': typeof PanelGhaamashaPanelRouteWithChildren
+  '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/agendar': typeof PanelGhaamashaPanelAgendarRoute
+  '/panel-ghaamasha/estadisticas': typeof PanelGhaamashaPanelEstadisticasRoute
+  '/panel-ghaamasha/pacientes': typeof PanelGhaamashaPanelPacientesRoute
+  '/panel-ghaamasha/staff': typeof PanelGhaamashaPanelStaffRoute
+  '/panel-ghaamasha/': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,9 +145,15 @@ export interface FileRoutesByTo {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog': typeof BlogIndexRoute
   '/servicios': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/agendar': typeof PanelGhaamashaPanelAgendarRoute
+  '/panel-ghaamasha/estadisticas': typeof PanelGhaamashaPanelEstadisticasRoute
+  '/panel-ghaamasha/pacientes': typeof PanelGhaamashaPanelPacientesRoute
+  '/panel-ghaamasha/staff': typeof PanelGhaamashaPanelStaffRoute
+  '/panel-ghaamasha': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,9 +164,16 @@ export interface FileRoutesById {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/panel-ghaamasha/_panel': typeof PanelGhaamashaPanelRouteWithChildren
+  '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/_panel/agendar': typeof PanelGhaamashaPanelAgendarRoute
+  '/panel-ghaamasha/_panel/estadisticas': typeof PanelGhaamashaPanelEstadisticasRoute
+  '/panel-ghaamasha/_panel/pacientes': typeof PanelGhaamashaPanelPacientesRoute
+  '/panel-ghaamasha/_panel/staff': typeof PanelGhaamashaPanelStaffRoute
+  '/panel-ghaamasha/_panel/': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,9 +185,16 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
+    | '/panel-ghaamasha'
+    | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
+    | '/panel-ghaamasha/agendar'
+    | '/panel-ghaamasha/estadisticas'
+    | '/panel-ghaamasha/pacientes'
+    | '/panel-ghaamasha/staff'
+    | '/panel-ghaamasha/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,9 +204,15 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
+    | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog'
     | '/servicios'
+    | '/panel-ghaamasha/agendar'
+    | '/panel-ghaamasha/estadisticas'
+    | '/panel-ghaamasha/pacientes'
+    | '/panel-ghaamasha/staff'
+    | '/panel-ghaamasha'
   id:
     | '__root__'
     | '/'
@@ -142,9 +222,16 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
+    | '/panel-ghaamasha/_panel'
+    | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
+    | '/panel-ghaamasha/_panel/agendar'
+    | '/panel-ghaamasha/_panel/estadisticas'
+    | '/panel-ghaamasha/_panel/pacientes'
+    | '/panel-ghaamasha/_panel/staff'
+    | '/panel-ghaamasha/_panel/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -155,6 +242,8 @@ export interface RootRouteChildren {
   PadecimientosRoute: typeof PadecimientosRoute
   PromocionesRoute: typeof PromocionesRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  PanelGhaamashaPanelRoute: typeof PanelGhaamashaPanelRouteWithChildren
+  PanelGhaamashaLoginRoute: typeof PanelGhaamashaLoginRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ServiciosIndexRoute: typeof ServiciosIndexRoute
@@ -218,6 +307,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel-ghaamasha/_panel': {
+      id: '/panel-ghaamasha/_panel'
+      path: '/panel-ghaamasha'
+      fullPath: '/panel-ghaamasha'
+      preLoaderRoute: typeof PanelGhaamashaPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel-ghaamasha/login': {
+      id: '/panel-ghaamasha/login'
+      path: '/panel-ghaamasha/login'
+      fullPath: '/panel-ghaamasha/login'
+      preLoaderRoute: typeof PanelGhaamashaLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicios/': {
       id: '/servicios/'
       path: '/servicios'
@@ -232,8 +335,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiciosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel-ghaamasha/_panel/': {
+      id: '/panel-ghaamasha/_panel/'
+      path: '/'
+      fullPath: '/panel-ghaamasha/'
+      preLoaderRoute: typeof PanelGhaamashaPanelIndexRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
+    '/panel-ghaamasha/_panel/agendar': {
+      id: '/panel-ghaamasha/_panel/agendar'
+      path: '/agendar'
+      fullPath: '/panel-ghaamasha/agendar'
+      preLoaderRoute: typeof PanelGhaamashaPanelAgendarRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
+    '/panel-ghaamasha/_panel/estadisticas': {
+      id: '/panel-ghaamasha/_panel/estadisticas'
+      path: '/estadisticas'
+      fullPath: '/panel-ghaamasha/estadisticas'
+      preLoaderRoute: typeof PanelGhaamashaPanelEstadisticasRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
+    '/panel-ghaamasha/_panel/pacientes': {
+      id: '/panel-ghaamasha/_panel/pacientes'
+      path: '/pacientes'
+      fullPath: '/panel-ghaamasha/pacientes'
+      preLoaderRoute: typeof PanelGhaamashaPanelPacientesRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
+    '/panel-ghaamasha/_panel/staff': {
+      id: '/panel-ghaamasha/_panel/staff'
+      path: '/staff'
+      fullPath: '/panel-ghaamasha/staff'
+      preLoaderRoute: typeof PanelGhaamashaPanelStaffRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
   }
 }
+
+interface PanelGhaamashaPanelRouteChildren {
+  PanelGhaamashaPanelAgendarRoute: typeof PanelGhaamashaPanelAgendarRoute
+  PanelGhaamashaPanelEstadisticasRoute: typeof PanelGhaamashaPanelEstadisticasRoute
+  PanelGhaamashaPanelPacientesRoute: typeof PanelGhaamashaPanelPacientesRoute
+  PanelGhaamashaPanelStaffRoute: typeof PanelGhaamashaPanelStaffRoute
+  PanelGhaamashaPanelIndexRoute: typeof PanelGhaamashaPanelIndexRoute
+}
+
+const PanelGhaamashaPanelRouteChildren: PanelGhaamashaPanelRouteChildren = {
+  PanelGhaamashaPanelAgendarRoute: PanelGhaamashaPanelAgendarRoute,
+  PanelGhaamashaPanelEstadisticasRoute: PanelGhaamashaPanelEstadisticasRoute,
+  PanelGhaamashaPanelPacientesRoute: PanelGhaamashaPanelPacientesRoute,
+  PanelGhaamashaPanelStaffRoute: PanelGhaamashaPanelStaffRoute,
+  PanelGhaamashaPanelIndexRoute: PanelGhaamashaPanelIndexRoute,
+}
+
+const PanelGhaamashaPanelRouteWithChildren =
+  PanelGhaamashaPanelRoute._addFileChildren(PanelGhaamashaPanelRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -243,6 +400,8 @@ const rootRouteChildren: RootRouteChildren = {
   PadecimientosRoute: PadecimientosRoute,
   PromocionesRoute: PromocionesRoute,
   BlogSlugRoute: BlogSlugRoute,
+  PanelGhaamashaPanelRoute: PanelGhaamashaPanelRouteWithChildren,
+  PanelGhaamashaLoginRoute: PanelGhaamashaLoginRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ServiciosIndexRoute: ServiciosIndexRoute,
