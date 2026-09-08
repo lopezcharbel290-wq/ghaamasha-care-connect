@@ -24,6 +24,7 @@ import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
 import { Route as PanelGhaamashaPanelIndexRouteImport } from './routes/panel-ghaamasha/_panel/index'
 import { Route as PanelGhaamashaPanelAgendarRouteImport } from './routes/panel-ghaamasha/_panel/agendar'
 import { Route as PanelGhaamashaPanelEstadisticasRouteImport } from './routes/panel-ghaamasha/_panel/estadisticas'
+import { Route as PanelGhaamashaPanelPacientesRouteImport } from './routes/panel-ghaamasha/_panel/pacientes'
 import { Route as PanelGhaamashaPanelStaffRouteImport } from './routes/panel-ghaamasha/_panel/staff'
 
 const IndexRoute = IndexRouteImport.update({
@@ -104,6 +105,12 @@ const PanelGhaamashaPanelEstadisticasRoute =
     path: '/estadisticas',
     getParentRoute: () => PanelGhaamashaPanelRoute,
   } as any)
+const PanelGhaamashaPanelPacientesRoute =
+  PanelGhaamashaPanelPacientesRouteImport.update({
+    id: '/pacientes',
+    path: '/pacientes',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
 const PanelGhaamashaPanelStaffRoute =
   PanelGhaamashaPanelStaffRouteImport.update({
     id: '/staff',
@@ -126,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/servicios/': typeof ServiciosIndexRoute
   '/panel-ghaamasha/agendar': typeof PanelGhaamashaPanelAgendarRoute
   '/panel-ghaamasha/estadisticas': typeof PanelGhaamashaPanelEstadisticasRoute
+  '/panel-ghaamasha/pacientes': typeof PanelGhaamashaPanelPacientesRoute
   '/panel-ghaamasha/staff': typeof PanelGhaamashaPanelStaffRoute
   '/panel-ghaamasha/': typeof PanelGhaamashaPanelIndexRoute
 }
@@ -143,6 +151,7 @@ export interface FileRoutesByTo {
   '/servicios': typeof ServiciosIndexRoute
   '/panel-ghaamasha/agendar': typeof PanelGhaamashaPanelAgendarRoute
   '/panel-ghaamasha/estadisticas': typeof PanelGhaamashaPanelEstadisticasRoute
+  '/panel-ghaamasha/pacientes': typeof PanelGhaamashaPanelPacientesRoute
   '/panel-ghaamasha/staff': typeof PanelGhaamashaPanelStaffRoute
   '/panel-ghaamasha': typeof PanelGhaamashaPanelIndexRoute
 }
@@ -162,6 +171,7 @@ export interface FileRoutesById {
   '/servicios/': typeof ServiciosIndexRoute
   '/panel-ghaamasha/_panel/agendar': typeof PanelGhaamashaPanelAgendarRoute
   '/panel-ghaamasha/_panel/estadisticas': typeof PanelGhaamashaPanelEstadisticasRoute
+  '/panel-ghaamasha/_panel/pacientes': typeof PanelGhaamashaPanelPacientesRoute
   '/panel-ghaamasha/_panel/staff': typeof PanelGhaamashaPanelStaffRoute
   '/panel-ghaamasha/_panel/': typeof PanelGhaamashaPanelIndexRoute
 }
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/servicios/'
     | '/panel-ghaamasha/agendar'
     | '/panel-ghaamasha/estadisticas'
+    | '/panel-ghaamasha/pacientes'
     | '/panel-ghaamasha/staff'
     | '/panel-ghaamasha/'
   fileRoutesByTo: FileRoutesByTo
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/servicios'
     | '/panel-ghaamasha/agendar'
     | '/panel-ghaamasha/estadisticas'
+    | '/panel-ghaamasha/pacientes'
     | '/panel-ghaamasha/staff'
     | '/panel-ghaamasha'
   id:
@@ -217,6 +229,7 @@ export interface FileRouteTypes {
     | '/servicios/'
     | '/panel-ghaamasha/_panel/agendar'
     | '/panel-ghaamasha/_panel/estadisticas'
+    | '/panel-ghaamasha/_panel/pacientes'
     | '/panel-ghaamasha/_panel/staff'
     | '/panel-ghaamasha/_panel/'
   fileRoutesById: FileRoutesById
@@ -343,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PanelGhaamashaPanelEstadisticasRouteImport
       parentRoute: typeof PanelGhaamashaPanelRoute
     }
+    '/panel-ghaamasha/_panel/pacientes': {
+      id: '/panel-ghaamasha/_panel/pacientes'
+      path: '/pacientes'
+      fullPath: '/panel-ghaamasha/pacientes'
+      preLoaderRoute: typeof PanelGhaamashaPanelPacientesRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
     '/panel-ghaamasha/_panel/staff': {
       id: '/panel-ghaamasha/_panel/staff'
       path: '/staff'
@@ -356,6 +376,7 @@ declare module '@tanstack/react-router' {
 interface PanelGhaamashaPanelRouteChildren {
   PanelGhaamashaPanelAgendarRoute: typeof PanelGhaamashaPanelAgendarRoute
   PanelGhaamashaPanelEstadisticasRoute: typeof PanelGhaamashaPanelEstadisticasRoute
+  PanelGhaamashaPanelPacientesRoute: typeof PanelGhaamashaPanelPacientesRoute
   PanelGhaamashaPanelStaffRoute: typeof PanelGhaamashaPanelStaffRoute
   PanelGhaamashaPanelIndexRoute: typeof PanelGhaamashaPanelIndexRoute
 }
@@ -363,6 +384,7 @@ interface PanelGhaamashaPanelRouteChildren {
 const PanelGhaamashaPanelRouteChildren: PanelGhaamashaPanelRouteChildren = {
   PanelGhaamashaPanelAgendarRoute: PanelGhaamashaPanelAgendarRoute,
   PanelGhaamashaPanelEstadisticasRoute: PanelGhaamashaPanelEstadisticasRoute,
+  PanelGhaamashaPanelPacientesRoute: PanelGhaamashaPanelPacientesRoute,
   PanelGhaamashaPanelStaffRoute: PanelGhaamashaPanelStaffRoute,
   PanelGhaamashaPanelIndexRoute: PanelGhaamashaPanelIndexRoute,
 }
