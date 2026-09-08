@@ -328,8 +328,6 @@ export const ORIGENES = [
   "web",
 ] as const;
 
-export const MARCA_ARCHIVADO = "[ARCHIVADO]";
-
 export type Paciente = {
   id: string;
   id_paciente_folio: number | null;
@@ -341,11 +339,12 @@ export type Paciente = {
   notas: string | null;
   estado_journey: (typeof ESTADOS_JOURNEY)[number];
   acepto_aviso_privacidad: boolean | null;
+  archivado: boolean;
   creado_el: string;
 };
 
 const PACIENTE_SELECT =
-  "id,id_paciente_folio,nombre_completo,telefono,correo,origen,municipio_zona,notas,estado_journey,acepto_aviso_privacidad,creado_el";
+  "id,id_paciente_folio,nombre_completo,telefono,correo,origen,municipio_zona,notas,estado_journey,acepto_aviso_privacidad,archivado,creado_el";
 
 export const listarPacientes = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) =>
@@ -372,9 +371,7 @@ export const listarPacientes = createServerFn({ method: "POST" })
       data.token,
       `pacientes?select=${PACIENTE_SELECT}&${filtros.join("&")}&order=creado_el.desc&limit=300`,
     );
-    return data.incluirArchivados
-      ? pacientes
-      : pacientes.filter((p) => !(p.notas ?? "").includes(MARCA_ARCHIVADO));
+    return data.incluirArchivados ? pacientes : pacientes.filter((p) => !p.archivado);
   });
 
 export type Seguimiento = {

@@ -19,7 +19,6 @@ import {
 import { usePerfil } from "@/components/panel/panel-session-context";
 import {
   ESTADOS_JOURNEY,
-  MARCA_ARCHIVADO,
   ORIGENES,
   actualizarPaciente,
   crearPaciente,
@@ -377,9 +376,9 @@ function FichaPaciente({
   });
 
   const archivar = useMutation({
-    mutationFn: async (notas: string) =>
+    mutationFn: async () =>
       actualizarPaciente({
-        data: { token: await obtenerToken(), id, notas: `${MARCA_ARCHIVADO} ${notas}`.trim() },
+        data: { token: await obtenerToken(), id, archivado: true },
       }),
     onSuccess: () => {
       onChanged();
@@ -465,7 +464,7 @@ function FichaPaciente({
                     className="text-red-700"
                     onClick={() => {
                       if (window.confirm("¿Archivar a este paciente? No se borra su historial."))
-                        archivar.mutate(p.notas ?? "");
+                        archivar.mutate();
                     }}
                   >
                     <Archive aria-hidden /> Archivar
