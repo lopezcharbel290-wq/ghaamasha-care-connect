@@ -371,9 +371,7 @@ export const listarPacientes = createServerFn({ method: "POST" })
       data.token,
       `pacientes?select=${PACIENTE_SELECT}&${filtros.join("&")}&order=creado_el.desc&limit=300`,
     );
-    return data.incluirArchivados
-      ? pacientes
-      : pacientes.filter((p) => !(p.notas ?? "").includes(MARCA_ARCHIVADO));
+    return data.incluirArchivados ? pacientes : pacientes.filter((p) => !p.archivado);
   });
 
 export type Seguimiento = {
