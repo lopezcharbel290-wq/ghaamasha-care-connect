@@ -376,9 +376,9 @@ function FichaPaciente({
   });
 
   const archivar = useMutation({
-    mutationFn: async (notas: string) =>
+    mutationFn: async () =>
       actualizarPaciente({
-        data: { token: await obtenerToken(), id, notas: `${MARCA_ARCHIVADO} ${notas}`.trim() },
+        data: { token: await obtenerToken(), id, archivado: true },
       }),
     onSuccess: () => {
       onChanged();
