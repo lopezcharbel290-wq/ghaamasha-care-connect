@@ -18,7 +18,6 @@ import {
   PanelCard,
   PanelError,
   PanelTitle,
-  PanelVacio,
   estadoClases,
 } from "@/components/panel/panel-ui";
 import { usePerfil } from "@/components/panel/panel-session-context";
@@ -492,5 +491,3 @@ function DetalleCita({
     </Dialog>
   );
 }
-
-export { PanelVacio };

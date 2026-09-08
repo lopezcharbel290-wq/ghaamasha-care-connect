@@ -21,6 +21,7 @@ import { Route as PanelGhaamashaPanelRouteImport } from './routes/panel-ghaamash
 import { Route as PanelGhaamashaLoginRouteImport } from './routes/panel-ghaamasha/login'
 import { Route as ServiciosIndexRouteImport } from './routes/servicios/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
+import { Route as PanelGhaamashaPanelIndexRouteImport } from './routes/panel-ghaamasha/_panel/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +83,12 @@ const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
   path: '/servicios/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PanelGhaamashaPanelIndexRoute =
+  PanelGhaamashaPanelIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => PanelGhaamashaPanelRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -91,11 +98,12 @@ export interface FileRoutesByFullPath {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/panel-ghaamasha': typeof PanelGhaamashaPanelRoute
+  '/panel-ghaamasha': typeof PanelGhaamashaPanelRouteWithChildren
   '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -105,11 +113,11 @@ export interface FileRoutesByTo {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/panel-ghaamasha': typeof PanelGhaamashaPanelRoute
   '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog': typeof BlogIndexRoute
   '/servicios': typeof ServiciosIndexRoute
+  '/panel-ghaamasha': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -120,11 +128,12 @@ export interface FileRoutesById {
   '/padecimientos': typeof PadecimientosRoute
   '/promociones': typeof PromocionesRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/panel-ghaamasha/_panel': typeof PanelGhaamashaPanelRoute
+  '/panel-ghaamasha/_panel': typeof PanelGhaamashaPanelRouteWithChildren
   '/panel-ghaamasha/login': typeof PanelGhaamashaLoginRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/servicios/': typeof ServiciosIndexRoute
+  '/panel-ghaamasha/_panel/': typeof PanelGhaamashaPanelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
+    | '/panel-ghaamasha/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,11 +160,11 @@ export interface FileRouteTypes {
     | '/padecimientos'
     | '/promociones'
     | '/blog/$slug'
-    | '/panel-ghaamasha'
     | '/panel-ghaamasha/login'
     | '/servicios/$slug'
     | '/blog'
     | '/servicios'
+    | '/panel-ghaamasha'
   id:
     | '__root__'
     | '/'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/servicios/$slug'
     | '/blog/'
     | '/servicios/'
+    | '/panel-ghaamasha/_panel/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -179,7 +190,7 @@ export interface RootRouteChildren {
   PadecimientosRoute: typeof PadecimientosRoute
   PromocionesRoute: typeof PromocionesRoute
   BlogSlugRoute: typeof BlogSlugRoute
-  PanelGhaamashaPanelRoute: typeof PanelGhaamashaPanelRoute
+  PanelGhaamashaPanelRoute: typeof PanelGhaamashaPanelRouteWithChildren
   PanelGhaamashaLoginRoute: typeof PanelGhaamashaLoginRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -272,8 +283,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiciosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/panel-ghaamasha/_panel/': {
+      id: '/panel-ghaamasha/_panel/'
+      path: '/'
+      fullPath: '/panel-ghaamasha/'
+      preLoaderRoute: typeof PanelGhaamashaPanelIndexRouteImport
+      parentRoute: typeof PanelGhaamashaPanelRoute
+    }
   }
 }
+
+interface PanelGhaamashaPanelRouteChildren {
+  PanelGhaamashaPanelIndexRoute: typeof PanelGhaamashaPanelIndexRoute
+}
+
+const PanelGhaamashaPanelRouteChildren: PanelGhaamashaPanelRouteChildren = {
+  PanelGhaamashaPanelIndexRoute: PanelGhaamashaPanelIndexRoute,
+}
+
+const PanelGhaamashaPanelRouteWithChildren =
+  PanelGhaamashaPanelRoute._addFileChildren(PanelGhaamashaPanelRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -283,7 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   PadecimientosRoute: PadecimientosRoute,
   PromocionesRoute: PromocionesRoute,
   BlogSlugRoute: BlogSlugRoute,
-  PanelGhaamashaPanelRoute: PanelGhaamashaPanelRoute,
+  PanelGhaamashaPanelRoute: PanelGhaamashaPanelRouteWithChildren,
   PanelGhaamashaLoginRoute: PanelGhaamashaLoginRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
