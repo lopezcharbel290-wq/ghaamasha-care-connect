@@ -539,6 +539,26 @@ export const desactivarStaff = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
+/** Un administrador asigna una nueva contraseña a cualquier miembro del personal. */
+export const restablecerPasswordStaff = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) =>
+    z
+      .object({
+        token: z.string().min(10),
+        id: z.string().uuid(),
+        password: z.string().min(8).max(72),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data }) => {
+    await exigirAdmin(data.token);
+    await admin(`/auth/v1/admin/users/${data.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ password: data.password }),
+    });
+    return { ok: true as const };
+  });
+
 /** Alta del primer administrador. Solo funciona si aún no existe ninguno. */
 export const crearPrimerAdmin = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) =>
