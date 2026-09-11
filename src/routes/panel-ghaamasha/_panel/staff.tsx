@@ -45,6 +45,8 @@ function StaffPage() {
   const [semana, setSemana] = useState(() => inicioSemana(new Date()));
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState<string | null>(null);
+  const [resetId, setResetId] = useState<string | null>(null);
+  const [nuevaPassword, setNuevaPassword] = useState("");
 
   const staff = useQuery({
     queryKey: ["panel", "staff"],
