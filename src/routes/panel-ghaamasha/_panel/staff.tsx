@@ -11,6 +11,7 @@ import { usePerfil } from "@/components/panel/panel-session-context";
 import {
   crearStaff,
   desactivarStaff,
+  restablecerPasswordStaff,
   listarCitas,
   listarSedes,
   listarStaff,
