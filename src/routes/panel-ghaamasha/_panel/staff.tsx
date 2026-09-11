@@ -97,6 +97,21 @@ function StaffPage() {
     onError: (e: Error) => setError(e.message),
   });
 
+  const reset = useMutation({
+    mutationFn: async (v: { id: string; password: string; nombre: string }) => {
+      await restablecerPasswordStaff({
+        data: { token: await obtenerToken(), id: v.id, password: v.password },
+      });
+      return v.nombre;
+    },
+    onSuccess: (nombre) => {
+      setResetId(null);
+      setNuevaPassword("");
+      setOk(`Contraseña actualizada para ${nombre}. Compártesela de forma segura.`);
+    },
+    onError: (e: Error) => setError(e.message),
+  });
+
   const baja = useMutation({
     mutationFn: async (id: string) => desactivarStaff({ data: { token: await obtenerToken(), id } }),
     onSuccess: () => {
