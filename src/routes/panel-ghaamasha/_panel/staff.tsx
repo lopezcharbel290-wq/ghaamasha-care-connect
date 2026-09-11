@@ -274,22 +274,71 @@ function StaffPage() {
 
           <ul className="divide-y divide-border">
             {(staff.data ?? []).map((s) => (
-              <li key={s.id} className="flex items-center justify-between gap-3 py-2 text-sm">
-                <span>
-                  <span className="font-semibold">{s.nombre_completo}</span>{" "}
-                  <span className="text-muted-foreground">· {s.rol}</span>
-                </span>
-                {s.id !== perfil.id ? (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-red-700"
-                    onClick={() => {
-                      if (window.confirm(`¿Desactivar a ${s.nombre_completo}?`)) baja.mutate(s.id);
+              <li key={s.id} className="space-y-2 py-2 text-sm">
+                <div className="flex items-center justify-between gap-3">
+                  <span>
+                    <span className="font-semibold">{s.nombre_completo}</span>{" "}
+                    <span className="text-muted-foreground">· {s.rol}</span>
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setError(null);
+                        setOk(null);
+                        setNuevaPassword("");
+                        setResetId((prev) => (prev === s.id ? null : s.id));
+                      }}
+                    >
+                      <KeyRound className="size-4" aria-hidden /> Cambiar contraseña
+                    </Button>
+                    {s.id !== perfil.id ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-700"
+                        onClick={() => {
+                          if (window.confirm(`¿Desactivar a ${s.nombre_completo}?`)) baja.mutate(s.id);
+                        }}
+                      >
+                        Desactivar
+                      </Button>
+                    ) : null}
+                  </div>
+                </div>
+
+                {resetId === s.id ? (
+                  <form
+                    className="flex flex-wrap items-end gap-2 rounded-lg border border-border bg-muted/40 p-3"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setError(null);
+                      setOk(null);
+                      reset.mutate({ id: s.id, password: nuevaPassword, nombre: s.nombre_completo });
                     }}
                   >
-                    Desactivar
-                  </Button>
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`pwd-${s.id}`}>Nueva contraseña</Label>
+                      <Input
+                        id={`pwd-${s.id}`}
+                        type="text"
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                        value={nuevaPassword}
+                        onChange={(e) => setNuevaPassword(e.target.value)}
+                        placeholder="Mínimo 8 caracteres"
+                      />
+                    </div>
+                    <Button type="submit" size="sm" disabled={reset.isPending}>
+                      {reset.isPending ? <Loader2 className="animate-spin" aria-hidden /> : null}
+                      Guardar
+                    </Button>
+                    <Button type="button" variant="ghost" size="sm" onClick={() => setResetId(null)}>
+                      Cancelar
+                    </Button>
+                  </form>
                 ) : null}
               </li>
             ))}
