@@ -71,4 +71,16 @@ export type CitaEntrada = {
 export type SeguimientoEntrada = {
   paciente_id: string;
   fecha_contacto: string;
+  canal?: string | null;
 };
+
+/** Texto con el que el panel registra el contacto hecho desde una alerta. */
+export const TEXTO_CONTACTO_ALERTA = "Contacto por alerta de abandono";
+
+/**
+ * Retirar una alerta guarda una fila en historial_seguimiento con este canal.
+ * No es un contacto real: se excluye al puntuar y solo sirve para ocultar la alerta
+ * hasta que el paciente vuelva a asistir.
+ */
+export const CANAL_RETIRO_ALERTA = "sistema";
+export const TEXTO_RETIRO_ALERTA = "Alerta de abandono retirada de la lista tras el contacto";

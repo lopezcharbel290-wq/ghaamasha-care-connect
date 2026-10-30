@@ -1,14 +1,34 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { AlertTriangle, CalendarX2, Check, Loader2, MessageCircle } from "lucide-react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AlertTriangle, CalendarX2, Check, EyeOff, Loader2, MessageCircle } from "lucide-react";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PanelCard, PanelError, PanelTitle, PanelVacio } from "@/components/panel/panel-ui";
-import { alertasChurn, type AlertaChurnPanel } from "@/lib/churn/churn.functions";
+import {
+  alertasChurn,
+  type AlertaChurnPanel,
+  type RespuestaAlertas,
+} from "@/lib/churn/churn.functions";
 import type { Diagnostico } from "@/lib/churn/alertas";
-import type { NivelRiesgo } from "@/lib/churn/types";
+import {
+  CANAL_RETIRO_ALERTA,
+  TEXTO_CONTACTO_ALERTA,
+  TEXTO_RETIRO_ALERTA,
+  type NivelRiesgo,
+} from "@/lib/churn/types";
 import { listarSedes, registrarSeguimiento } from "@/lib/panel/panel.functions";
 import { obtenerToken } from "@/lib/panel/session";
 import { cn } from "@/lib/utils";
@@ -138,7 +158,15 @@ function AlertasPage() {
         ))}
       </div>
 
-      {alertas.data && todas.length === 0 ? (
+      {alertas.data && alertas.data.retiradas > 0 ? (
+        <p className="text-xs text-muted-foreground">
+          {alertas.data.retiradas}{" "}
+          {alertas.data.retiradas === 1 ? "alerta retirada" : "alertas retiradas"} tras contactar al
+          paciente.
+        </p>
+      ) : null}
+
+      {alertas.data && todas.length === 0 && alertas.data.retiradas === 0 ? (
         <DiagnosticoVacio d={alertas.data.diagnostico} />
       ) : null}
 
@@ -191,8 +219,14 @@ function DiagnosticoVacio({ d }: { d: Diagnostico }) {
 }
 
 function AlertaFila({ alerta: a, sede }: { alerta: AlertaChurnPanel; sede: string | undefined }) {
-  const [contactado, setContactado] = useState(false);
+  const queryClient = useQueryClient();
   const [error, setError] = useState("");
+
+  // Actualiza todas las listas en caché (cualquier sede) sin volver a consultar Supabase
+  const actualizarListas = (cambiar: (r: RespuestaAlertas) => RespuestaAlertas) =>
+    queryClient.setQueriesData<RespuestaAlertas>({ queryKey: ["panel", "alertas-churn"] }, (r) =>
+      r ? cambiar(r) : r,
+    );
 
   const marcar = useMutation({
     mutationFn: async () =>
@@ -201,10 +235,35 @@ function AlertaFila({ alerta: a, sede }: { alerta: AlertaChurnPanel; sede: strin
           token: await obtenerToken(),
           paciente_id: a.paciente_id,
           canal: "whatsapp",
-          respuesta_paciente: "Contacto por alerta de abandono",
+          respuesta_paciente: TEXTO_CONTACTO_ALERTA,
         },
       }),
-    onSuccess: () => setContactado(true),
+    onSuccess: () =>
+      actualizarListas((r) => ({
+        ...r,
+        alertas: r.alertas.map((x) =>
+          x.paciente_id === a.paciente_id ? { ...x, contactado: true } : x,
+        ),
+      })),
+    onError: (e: Error) => setError(e.message),
+  });
+
+  const retirar = useMutation({
+    mutationFn: async () =>
+      registrarSeguimiento({
+        data: {
+          token: await obtenerToken(),
+          paciente_id: a.paciente_id,
+          canal: CANAL_RETIRO_ALERTA,
+          respuesta_paciente: TEXTO_RETIRO_ALERTA,
+        },
+      }),
+    onSuccess: () =>
+      actualizarListas((r) => ({
+        ...r,
+        alertas: r.alertas.filter((x) => x.paciente_id !== a.paciente_id),
+        retiradas: r.retiradas + 1,
+      })),
     onError: (e: Error) => setError(e.message),
   });
 
@@ -265,7 +324,7 @@ function AlertaFila({ alerta: a, sede }: { alerta: AlertaChurnPanel; sede: strin
             type="button"
             size="sm"
             variant="secondary"
-            disabled={contactado || marcar.isPending}
+            disabled={a.contactado || marcar.isPending}
             onClick={() => {
               setError("");
               marcar.mutate();
@@ -276,8 +335,52 @@ function AlertaFila({ alerta: a, sede }: { alerta: AlertaChurnPanel; sede: strin
             ) : (
               <Check aria-hidden />
             )}
-            {contactado ? "Contacto registrado" : "Registrar contacto"}
+            {a.contactado ? "Contacto registrado" : "Registrar contacto"}
           </Button>
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                disabled={!a.contactado || retirar.isPending}
+              >
+                {retirar.isPending ? (
+                  <Loader2 className="animate-spin" aria-hidden />
+                ) : (
+                  <EyeOff aria-hidden />
+                )}
+                Quitar de la lista
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>¿Quitar a {a.nombre_completo} de la lista?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Dejará de aparecer en las alertas. Su contacto queda guardado en el historial de
+                  seguimiento y la alerta vuelve a aparecer solo si el paciente asiste de nuevo y
+                  después se aleja otra vez.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    setError("");
+                    retirar.mutate();
+                  }}
+                >
+                  Quitar de la lista
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          {!a.contactado ? (
+            <span className="self-center text-xs text-muted-foreground">
+              Registra el contacto para poder quitarla.
+            </span>
+          ) : null}
         </div>
       </PanelCard>
     </li>

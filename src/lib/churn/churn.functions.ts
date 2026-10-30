@@ -2,12 +2,14 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import modeloJson from "./modelo-churn.json";
 import { diagnosticar, puntuarPacientes, type Diagnostico } from "./alertas";
-import type {
-  AlertaChurn,
-  CitaEntrada,
-  ModeloExportado,
-  PacienteEntrada,
-  SeguimientoEntrada,
+import { aplicarRetiros } from "./retiros";
+import {
+  CANAL_RETIRO_ALERTA,
+  type AlertaChurn,
+  type CitaEntrada,
+  type ModeloExportado,
+  type PacienteEntrada,
+  type SeguimientoEntrada,
 } from "./types";
 
 /**
@@ -65,10 +67,14 @@ async function exigirAdminORecepcion(token: string) {
 export type AlertaChurnPanel = AlertaChurn & {
   nombre_completo: string;
   telefono: string | null;
+  /** hay un contacto registrado después de su última asistencia */
+  contactado: boolean;
 };
 
 export type RespuestaAlertas = {
   alertas: AlertaChurnPanel[];
+  /** alertas ocultas porque el personal las retiró tras contactar al paciente */
+  retiradas: number;
   diagnostico: Diagnostico;
   modelo: {
     fuente_datos: ModeloExportado["meta"]["fuente_datos"];
@@ -95,21 +101,37 @@ export const alertasChurn = createServerFn({ method: "POST" })
       ),
       leerTodo<SeguimientoEntrada>(
         data.token,
-        "historial_seguimiento?select=paciente_id,fecha_contacto&order=id",
+        "historial_seguimiento?select=paciente_id,fecha_contacto,canal&order=id",
       ),
     ]);
 
+    const ahora = Date.now();
+    const esRetiro = (s: SeguimientoEntrada) => s.canal === CANAL_RETIRO_ALERTA;
     const contacto = new Map(pacientes.map((p) => [p.id, p]));
-    const alertas = puntuarPacientes(MODELO, pacientes, citas, seguimiento, Date.now())
-      .filter((a) => !data.sedeId || a.sede_id === data.sedeId)
-      .map((a) => ({
-        ...a,
-        nombre_completo: contacto.get(a.paciente_id)?.nombre_completo ?? "Paciente",
-        telefono: contacto.get(a.paciente_id)?.telefono ?? null,
-      }));
+    // El retiro no es un contacto real: no debe contar como atributo del modelo.
+    const puntuadas = puntuarPacientes(
+      MODELO,
+      pacientes,
+      citas,
+      seguimiento.filter((s) => !esRetiro(s)),
+      ahora,
+    ).filter((a) => !data.sedeId || a.sede_id === data.sedeId);
+    const { alertas: visibles, retiradas } = aplicarRetiros(
+      puntuadas,
+      citas,
+      seguimiento,
+      esRetiro,
+      ahora,
+    );
+    const alertas = visibles.map((a) => ({
+      ...a,
+      nombre_completo: contacto.get(a.paciente_id)?.nombre_completo ?? "Paciente",
+      telefono: contacto.get(a.paciente_id)?.telefono ?? null,
+    }));
 
     return {
       alertas,
+      retiradas,
       diagnostico: diagnosticar(MODELO, pacientes, citas, Date.now()),
       modelo: {
         fuente_datos: MODELO.meta.fuente_datos,
