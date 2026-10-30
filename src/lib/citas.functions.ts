@@ -78,7 +78,7 @@ async function buscarSede(sede: CitaInput["sede"]): Promise<string> {
 }
 
 export const solicitarCita = createServerFn({ method: "POST" })
-  .validator(citaSchema)
+  .inputValidator((input: unknown) => citaSchema.parse(input))
   .handler(async ({ data }) => {
     const [pacienteId, sedeId] = await Promise.all([
       buscarOCrearPaciente(data),
