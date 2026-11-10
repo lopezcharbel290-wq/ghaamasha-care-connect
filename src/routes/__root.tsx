@@ -137,9 +137,12 @@ function RootComponent() {
       sessionStorage.setItem("recarga-modulo", "1");
       window.location.reload();
     };
-    sessionStorage.removeItem("recarga-modulo");
+    const t = window.setTimeout(() => sessionStorage.removeItem("recarga-modulo"), 10_000);
     window.addEventListener("vite:preloadError", recargar);
-    return () => window.removeEventListener("vite:preloadError", recargar);
+    return () => {
+      window.clearTimeout(t);
+      window.removeEventListener("vite:preloadError", recargar);
+    };
   }, []);
 
   if (esPanel) {
