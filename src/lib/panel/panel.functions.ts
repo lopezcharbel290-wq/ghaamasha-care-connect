@@ -703,3 +703,38 @@ export const estadisticasPanel = createServerFn({ method: "POST" })
       totalPacientes: activos.length,
     };
   });
+
+/* --------------------------- Acceso sin contraseña ------------------------ */
+
+/**
+ * Entrada directa al panel (sin login), por decisión del cliente.
+ * Abre sesión como el primer administrador usando un enlace mágico generado
+ * en el servidor; las operaciones siguen pasando por RLS con ese token.
+ */
+export const sesionAutomatica = createServerFn({ method: "POST" }).handler(async () => {
+  const admins = await admin<{ id: string }[]>(
+    "/rest/v1/usuarios_sistema?select=id&rol=eq.admin&order=id&limit=1",
+  );
+  const primero = admins[0];
+  if (!primero) throw new Error("No hay ningún administrador dado de alta");
+  const usuario = await admin<{ email: string }>(`/auth/v1/admin/users/${primero.id}`);
+  const enlace = await admin<{ hashed_token?: string; properties?: { hashed_token?: string } }>(
+    "/auth/v1/admin/generate_link",
+    { method: "POST", body: JSON.stringify({ type: "magiclink", email: usuario.email }) },
+  );
+  const hash = enlace.hashed_token ?? enlace.properties?.hashed_token;
+  if (!hash) throw new Error("No se pudo abrir el panel");
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/verify`, {
+    method: "POST",
+    headers: { apikey: anonKey(), "Content-Type": "application/json" },
+    body: JSON.stringify({ type: "magiclink", token_hash: hash }),
+  });
+  const data = (await res.json()) as {
+    access_token?: string;
+    refresh_token?: string;
+    expires_in?: number;
+    user?: { id: string };
+  };
+  if (!res.ok || !data.access_token || !data.user) throw new Error("No se pudo abrir el panel");
+  return armarSesion(data as Required<typeof data>);
+});

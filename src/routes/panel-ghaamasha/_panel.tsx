@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 import {
   BarChart3,
   BellRing,
   CalendarDays,
   CalendarPlus,
-  LogOut,
   Menu,
   Users,
   UserCog,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { PANEL_BASE } from "@/lib/panel/session";
 import { PanelSesionContext } from "@/components/panel/panel-session-context";
-import type { Perfil } from "@/lib/panel/panel.functions";
-import { PANEL_BASE, borrarSesion, leerSesion } from "@/lib/panel/session";
+import { sesionAutomatica, type Perfil } from "@/lib/panel/panel.functions";
+import { guardarSesion, leerSesion } from "@/lib/panel/session";
 
 export const Route = createFileRoute("/panel-ghaamasha/_panel")({
   ssr: false,
@@ -38,37 +38,37 @@ const SECCIONES = [
 ] as const;
 
 function PanelLayout() {
-  const navigate = useNavigate();
   const [perfil, setPerfil] = useState<Perfil | null>(null);
   const [listo, setListo] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const sync = () => {
       const sesion = leerSesion();
       setPerfil(sesion?.perfil ?? null);
       setListo(true);
-      if (!sesion) navigate({ to: `${PANEL_BASE}/login`, replace: true });
+      if (!sesion) {
+        sesionAutomatica()
+          .then(guardarSesion)
+          .catch(() => setError(true));
+      }
     };
     sync();
     window.addEventListener("panel-sesion", sync);
     return () => window.removeEventListener("panel-sesion", sync);
-  }, [navigate]);
+  }, []);
 
   if (!listo || !perfil) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-100 text-sm text-muted-foreground">
-        Cargando panel…
+        {error ? "No se pudo abrir el panel. Recarga la página." : "Cargando panel…"}
       </div>
     );
   }
 
   const secciones = SECCIONES.filter((s) => (s.roles as readonly string[]).includes(perfil.rol));
 
-  function salir() {
-    borrarSesion();
-    navigate({ to: `${PANEL_BASE}/login`, replace: true });
-  }
 
   return (
     <PanelSesionContext.Provider value={perfil}>
@@ -103,13 +103,6 @@ function PanelLayout() {
                 {s.label}
               </Link>
             ))}
-            <button
-              type="button"
-              onClick={salir}
-              className="mt-3 flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-50"
-            >
-              <LogOut className="size-4" aria-hidden /> Cerrar sesión
-            </button>
           </nav>
         </aside>
 
