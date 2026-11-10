@@ -130,6 +130,18 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const esPanel = pathname.startsWith("/panel-ghaamasha");
 
+  // Si una parte de la página quedó vieja tras una actualización, recarga una vez.
+  useEffect(() => {
+    const recargar = () => {
+      if (sessionStorage.getItem("recarga-modulo")) return;
+      sessionStorage.setItem("recarga-modulo", "1");
+      window.location.reload();
+    };
+    sessionStorage.removeItem("recarga-modulo");
+    window.addEventListener("vite:preloadError", recargar);
+    return () => window.removeEventListener("vite:preloadError", recargar);
+  }, []);
+
   if (esPanel) {
     return (
       <QueryClientProvider client={queryClient}>
